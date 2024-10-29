@@ -1,15 +1,43 @@
 import tkinter as tk
 from tkinter import ttk
-from record import CompetidoresF1
+import requests
+
+class CompetidoresGallos:
+    def __init__(self, url):
+        self._url = url  # Atributo privado
+
+    def obtener_ultimo_registro(self):
+        try:
+            response = requests.get(self._url)
+            response.raise_for_status()  # Verifica si hubo un error en la solicitud
+            data = response.json()
+
+            # Obtiene el último registro
+            if data:
+                return data[-1]
+            else:
+                return None
+        except Exception as e:
+            raise ValueError(f"Error al obtener el registro: {e}")
+
+    def obtener_todos_los_registros(self):
+        try:
+            response = requests.get(self._url)
+            response.raise_for_status()
+            data = response.json()
+            return data
+        except Exception as e:
+            raise ValueError(f"Error al obtener los registros: {e}")
 
 
-class F1:
+class Gallos:
     def __init__(self, root1):
         self.root = root1
         self.root.title("Corredores de F1")
         self.root.geometry("800x600")
+        self.root.resizable(False,False)
 
-        self._api = CompetidoresF1("https://671be42a2c842d92c381a5c0.mockapi.io/F1")
+        self._api = CompetidoresGallos("https://671be42a2c842d92c381a5c0.mockapi.io/GpMotors")
 
         # Configurar el Treeview para mostrar los registros
         style = ttk.Style()
@@ -118,5 +146,5 @@ class F1:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = F1(root)
+    app = Gallos(root)
     root.mainloop()
