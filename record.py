@@ -2,11 +2,11 @@ import requests
 
 class CompetidoresF1:
     def __init__(self, url):
-        self.url = url
+        self._url = url  # Atributo privado
 
     def obtener_ultimo_registro(self):
         try:
-            response = requests.get(self.url)
+            response = requests.get(self._url)
             response.raise_for_status()  # Verifica si hubo un error en la solicitud
             data = response.json()
 
@@ -20,7 +20,7 @@ class CompetidoresF1:
 
     def obtener_todos_los_registros(self):
         try:
-            response = requests.get(self.url)
+            response = requests.get(self._url)
             response.raise_for_status()
             data = response.json()
             return data

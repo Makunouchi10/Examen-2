@@ -8,7 +8,7 @@ class F1:
         self.root.title("Corredores de F1")
         self.root.geometry("600x600")
 
-        self.api = CompetidoresF1("https://671be42a2c842d92c381a5c0.mockapi.io/F1")
+        self._api = CompetidoresF1("https://671be42a2c842d92c381a5c0.mockapi.io/F1")
 
         # Botón para obtener el último registro
         self.boton_ultimo = tk.Button(root1, text="Obtener Último Registro", command=self.mostrar_ultimo_registro)
@@ -32,7 +32,7 @@ class F1:
 
     def mostrar_ultimo_registro(self):
         try:
-            ultimo_registro = self.api.obtener_ultimo_registro()
+            ultimo_registro = self._api.obtener_ultimo_registro()
             if ultimo_registro:
                 self.mostrar_datos(ultimo_registro)
             else:
@@ -58,7 +58,7 @@ class F1:
 
     def mostrar_todos_los_registros(self):
         try:
-            todos_los_registros = self.api.obtener_todos_los_registros()
+            todos_los_registros = self._api.obtener_todos_los_registros()
             if todos_los_registros:
                 texto = "\n\n".join([self.formatear_datos(registro) for registro in todos_los_registros])
                 self.resultado_text.delete(1.0, tk.END)
@@ -85,7 +85,7 @@ class F1:
     def buscar_por_id(self):
         registro_id = self.id_entry.get()
         try:
-            todos_los_registros = self.api.obtener_todos_los_registros()
+            todos_los_registros = self._api.obtener_todos_los_registros()
             registro_encontrado = next((registro for registro in todos_los_registros if registro['id'] == registro_id), None)
             if registro_encontrado:
                 self.mostrar_datos(registro_encontrado)
