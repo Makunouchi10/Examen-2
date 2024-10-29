@@ -33,11 +33,11 @@ class CompetidoresGallos:
 class Gallos:
     def __init__(self, root1):
         self.root = root1
-        self.root.title("Corredores de F1")
+        self.root.title("Corredores de Gallos")
         self.root.geometry("800x600")
         self.root.resizable(False,False)
 
-        self._api = CompetidoresGallos("https://671be42a2c842d92c381a5c0.mockapi.io/GpMotors")
+        self._api = CompetidoresGallos("https://671be42a2c842d92c381a5c0.mockapi.io/CarGallos")
 
         # Configurar el Treeview para mostrar los registros
         style = ttk.Style()
@@ -142,9 +142,3 @@ class Gallos:
         except ValueError as e:
             self.clear_table()
             print(str(e))
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = Gallos(root)
-    root.mainloop()
